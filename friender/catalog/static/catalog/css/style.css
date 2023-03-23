@@ -1,0 +1,13 @@
+p{
+    margin: 20px;
+    padding: 25px;
+}
+
+h1{
+    margin: 10px;
+    padding-top: 10px;
+}
+.ret_text{
+    font-family: Arial;
+    color: red;
+}
