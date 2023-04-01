@@ -21,6 +21,10 @@ class Users(models.Model):
     def __str__(self):
         return f"{self.first_name}"
 
+    class Meta:
+        ordering = ['first_name']
+        verbose_name_plural = "Пользователи"
+
 
 class Host(Users):
     class Meta:
@@ -52,6 +56,7 @@ class User_Ratings(models.Model):
 
     class Meta:
         abstract = True
+
 
     def __str__(self):
         return f"{self.rating}"
@@ -92,7 +97,7 @@ class Restaurant(Place):
 
 class Bar(Place):
     free_table = models.IntegerField(verbose_name='свободные места')
-    average_paycheck = models.FloatField( verbose_name='средний чек')
+    average_paycheck = models.FloatField(verbose_name='средний чек')
 
     def __str__(self):
         return f"{self.place_name}"
