@@ -2,9 +2,9 @@
 {% block content%}
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form }}
     <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3">Cоздать</button>
+        <button type="submit" class="btn btn-primary mb-3">Зарегистрироваться</button>
     </div>
 </form>
 {% endblock %}
