@@ -70,9 +70,15 @@ def logout_user(request):
     return redirect('login')
 
 
-# переделать
 class MeetingCreateView(CreateView):
-    template_name = 'host.html'
+    template_name = 'add_meeting.html'
     model = Meetings
-    fields = ['meeting_name', 'user', 'place']
+    fields = ['meeting_name', 'date_meeting', 'time_meeting', 'user', 'place', 'meeting_description']
     success_url = reverse_lazy('home')
+
+
+class MeetingView(ListView):
+    template_name = 'all_meeting.html'
+    model = Meetings
+    context_object_name = 'meetings'
+    permission_required = 'catalog.view_meeting'

@@ -1,0 +1,13 @@
+{% extends 'base.html'%}
+{% block content%}
+
+<h4>
+    Добро пожаловать на страницу встречь
+</h4>
+<ul>
+    {% for meeting in meetings %}
+        <li>{{meeting.meeting_name}}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
