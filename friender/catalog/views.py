@@ -20,10 +20,6 @@ def home(request):
     return render(request, 'home.html')
 
 
-def feedback(request):
-    return render(request, 'feedback.html')
-
-
 class GuestView(ListView):
     model = Users
     context_object_name = 'users'
@@ -82,3 +78,10 @@ class MeetingView(ListView):
     model = Meetings
     context_object_name = 'meetings'
     permission_required = 'catalog.view_meeting'
+
+
+class FeedbackCreateView(CreateView):
+    template_name = 'feedback.html'
+    model = Rating
+    fields = ['user', 'meetings', 'meetings_rating', 'comment']
+    success_url = reverse_lazy('feedback')

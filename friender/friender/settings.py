@@ -35,11 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "crispy_forms",
+    'crispy_forms',
     "crispy_bootstrap5",
     'django_extensions',
-    "debug_toolbar",
     'catalog.apps.CatalogConfig',
+    "debug_toolbar",
+    'friender_api.apps.FrienderApiConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -102,12 +104,6 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 
-INTERNAL_IPS = [
-    # ...
-    "127.0.0.1",
-    # ...
-]
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -126,6 +122,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -142,7 +144,20 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = 'media_files'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+# }

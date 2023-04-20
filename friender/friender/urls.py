@@ -21,6 +21,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('friender/', include('catalog.urls')),
+    path('api/', include('friender_api.urls')),
+    path('api-auth/', include('rest_framework.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
 ]
 if settings.DEBUG == True:

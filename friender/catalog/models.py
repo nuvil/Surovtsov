@@ -54,7 +54,7 @@ class Guest(Users):
 
 class User_rating(models.Model):
     user_rating = models.PositiveIntegerField(verbose_name='рейтинг пользователя', null=True)
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, null=True)
 
     class Meta:
         abstract = True
@@ -102,7 +102,7 @@ class Hobbies(models.Model):
 class Place(models.Model):
     place_name = models.CharField(max_length=100, verbose_name='название')
     address = models.CharField(max_length=100, verbose_name='адрес')
-    # place_site = models.CharField(max_length=50, verbose_name='сайт заведения', null=True)
+    place_site = models.URLField(max_length=50, verbose_name='сайт заведения', null=True)
     place_phone = models.CharField(max_length=20, verbose_name='телефон')
     place_photo = models.ImageField(upload_to='place_photo', null=True, blank=True)
 
@@ -148,7 +148,7 @@ class Cafe(Place):
 
 class Place_rating(models.Model):
     place_rating = models.PositiveIntegerField(verbose_name='рейтинг заведения', null=True)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.place_rating}"
