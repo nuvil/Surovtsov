@@ -4,10 +4,13 @@ p{
 }
 
 h1{
-    margin: 10px;
-    padding-top: 10px;
+    margin: 1px;
+    padding-top: 1px;
 }
 .ret_text{
     font-family: Arial;
     color: red;
+}
+.white_text{
+    color: white;
 }

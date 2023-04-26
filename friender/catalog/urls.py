@@ -6,8 +6,9 @@ urlpatterns = [
     path('feedback/', FeedbackCreateView.as_view(), name='feedback'),
     path('add_meeting/', MeetingCreateView.as_view(), name='add_meeting'),
     path('meeting/', MeetingView.as_view(), name='meeting'),
-    path('institution/', institution, name='institution'),
+    path('places/', PlaceView.as_view(), name='places'),
     path('register/', RegisterUser.as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
+    path('profile/', profile, name='profile'),
 ]

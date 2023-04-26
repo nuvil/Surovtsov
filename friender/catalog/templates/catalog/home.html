@@ -1,6 +1,22 @@
 {% extends 'base.html'%}
 {% block content%}
-<h4>
-    Добро пожаловать на сайт знакомств
-</h4>
+<div id="carouselExampleDark" class="carousel carousel-white slide">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+            <img src="../../static/catalog/images/first.png" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h3>Добро пожаловать на сайт знакомств</h3>
+                <p>
+                <h6>Здесь вы сможете найти людей по своим интересам</h6>
+                </p>
+                <button type="button" class="btn btn-warning">
+                    <a class="nav-link active" href="{% url 'register' %}">Зарегистрироваться</a>
+                </button>
+                <button type="button" class="btn btn-warning">
+                    <a class="nav-link active" href="{% url 'login' %}">Войти</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

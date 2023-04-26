@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div>
+    <p>
+        <img class="rounded-circle account-img" src="{{ user.users.photo.url }}" height="180" width="170">
+    </p>
+</div>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <p><input type="submit" value="Сохранить изменения"></p>
+</form>
+{% endblock %}

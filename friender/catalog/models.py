@@ -10,14 +10,14 @@ choice_of_status = [
 
 
 class Users(models.Model):
-    first_name = models.CharField(max_length=30, verbose_name='имя')
-    last_name = models.CharField(max_length=30, verbose_name='фамилия')
-    age = models.IntegerField(verbose_name='возраст')
-    photo = models.ImageField(upload_to='user_photo', null=True, blank=True)
+    first_name = models.CharField(max_length=30, verbose_name='имя', null=True)
+    last_name = models.CharField(max_length=30, verbose_name='фамилия', null=True)
+    age = models.IntegerField(verbose_name='возраст', null=True)
+    photo = models.ImageField(default='default.jpg', upload_to='user_photo', blank=False)
     email = models.CharField(max_length=50, verbose_name='почта', null=True)
     address = models.CharField(max_length=100, verbose_name='адрес', null=True)
     status = models.CharField(max_length=1, choices=choice_of_status, default='n', verbose_name='статус')
-    # id_user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    id_user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     hobbies = models.ManyToManyField('Hobbies')
 
     def __str__(self):
