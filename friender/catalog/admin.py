@@ -47,7 +47,7 @@ admin.site.register(Place, PlaceAdmin)
 class BarAdmin(admin.ModelAdmin):
     list_display = ('place_name', 'address', 'place_phone', 'get_html_photo', 'average_paycheck', 'description')
     list_display_links = ('place_name', 'get_html_photo')
-    list_editable = ('place_phone', 'address', 'average_paycheck')
+    list_editable = ('place_phone', 'address', 'average_paycheck', 'description')
     search_fields = ('place_name',)
 
     def get_html_photo(self, objects):
@@ -63,7 +63,7 @@ admin.site.register(Bar, BarAdmin)
 class CafeAdmin(admin.ModelAdmin):
     list_display = ('place_name', 'address', 'place_phone', 'get_html_photo', 'average_paycheck', 'description')
     list_display_links = ('place_name', 'get_html_photo')
-    list_editable = ('place_phone', 'address', 'average_paycheck')
+    list_editable = ('place_phone', 'address', 'average_paycheck', 'description')
     search_fields = ('place_name',)
 
     def get_html_photo(self, objects):
@@ -79,7 +79,7 @@ admin.site.register(Cafe, CafeAdmin)
 class RestaurantAdmin(admin.ModelAdmin):
     list_display = ('place_name', 'address', 'place_phone', 'get_html_photo', 'average_paycheck', 'description')
     list_display_links = ('place_name', 'get_html_photo')
-    list_editable = ('place_phone', 'address', 'average_paycheck')
+    list_editable = ('place_phone', 'address', 'average_paycheck', 'description')
     search_fields = ('place_name',)
 
     def get_html_photo(self, objects):

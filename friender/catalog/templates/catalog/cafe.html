@@ -8,7 +8,7 @@
         <img src="{{ cf.place_photo.url }}" class="card-img-top">
         <div class="card-body">
             <h5 class="card-title">{{cf.place_name}}</h5>
-            <p class="card-text">{{cf.description}}</p>
+            <p class="card-text">{{cf.description|linebreaks}}</p>
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{ cf.address}}</li>

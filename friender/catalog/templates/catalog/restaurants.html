@@ -8,7 +8,7 @@
         <img src="{{ rst.place_photo.url }}" class="card-img-top">
         <div class="card-body">
             <h5 class="card-title">{{rst.place_name}}</h5>
-            <p class="card-text">{{rst.description}}</p>
+            <p class="card-text">{{rst.description|linebreaks}}</p>
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{ rst.address}}</li>

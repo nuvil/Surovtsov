@@ -8,7 +8,7 @@
         <img src="{{ bar.place_photo.url }}" class="card-img-top">
         <div class="card-body">
             <h5 class="card-title">{{bar.place_name}}</h5>
-            <p class="card-text">{{bar.description}}</p>
+            <p class="card-text">{{bar.description|linebreaks}}</p>
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{ bar.address}}</li>

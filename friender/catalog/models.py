@@ -104,7 +104,7 @@ class Place(models.Model):
     address = models.CharField(max_length=100, verbose_name='адрес')
     place_site = models.URLField(max_length=50, verbose_name='сайт заведения', null=True)
     place_phone = models.CharField(max_length=20, verbose_name='телефон')
-    place_photo = models.ImageField(upload_to='place_photo', null=True, blank=True)
+    place_photo = models.ImageField(default='default_place.jpg', upload_to='place_photo', blank=True)
 
     def __str__(self):
         return f"{self.place_name}"
@@ -115,29 +115,29 @@ class Place(models.Model):
 
 class Restaurant(Place):
     average_paycheck = models.FloatField(verbose_name='средний чек(BYN)', null=True)
-    description = models.CharField(max_length=400, verbose_name="описание заведения", null=True)
+    description = models.TextField(max_length=400, verbose_name="описание заведения", null=True)
 
     def __str__(self):
         return f"{self.place_name}"
 
     class Meta:
-        verbose_name_plural = "Ресторан"
+        verbose_name_plural = "Рестораны"
 
 
 class Bar(Place):
     average_paycheck = models.FloatField(verbose_name='средний чек(BYN)', null=True)
-    description = models.CharField(max_length=400, verbose_name="описание заведения", null=True)
+    description = models.TextField(max_length=400, verbose_name="описание заведения", null=True)
 
     def __str__(self):
         return f"{self.place_name}"
 
     class Meta:
-        verbose_name_plural = "Бар"
+        verbose_name_plural = "Бары"
 
 
 class Cafe(Place):
     average_paycheck = models.FloatField(verbose_name='средний чек(BYN)', null=True)
-    description = models.CharField(max_length=400, verbose_name="описание заведения", null=True)
+    description = models.TextField(max_length=400, verbose_name="описание заведения", null=True)
 
     def __str__(self):
         return f"{self.place_name}"
@@ -158,10 +158,10 @@ class Place_rating(models.Model):
 
 
 class Rating(Place_rating, User_rating, Meetings_rating):
-    comment = models.CharField(max_length=300, verbose_name='комментарий', null=True)
+    comment = models.TextField(max_length=300, verbose_name='комментарий', null=True)
 
     def __str__(self):
         return f"{self.comment}"
 
     class Meta:
-        verbose_name_plural = "Рейтинг"
+        verbose_name_plural = "Отзывы"
