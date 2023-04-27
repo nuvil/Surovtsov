@@ -10,15 +10,17 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'meeting' %}">Встречи</a>
+
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">None</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'cafe' %}">Кафе</a>
+
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'places' %}">Заведения</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'restaurants' %}">Рестараны</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url  'feedback' %}">Рейтинг</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'bars' %}">Бары</a>
                 </li>
             </ul>
         </div>
@@ -26,13 +28,19 @@
         <div>
 
             <li class="d-flex">
-                <button type="button" class="btn btn-outline-secondary"><a class="nav-link active" href="{% url 'profile' %}">{{ user.username }}</a></button>&nbsp
+                <button type="button" class="btn btn-outline-secondary">
+                    <a class="nav-link active" href="{% url 'profile' %}">{{ user.username }}</a>
+                </button>&nbsp
                 <button type="button" class="btn btn-outline-secondary"><a class="nav-link active" href="{% url 'logout' %}">Выйти</a></button>
             </li>
             {% else %}
             <li class="d-flex">
-                <button type="button" class="btn btn-outline-secondary"><a class="nav-link active" href="{% url 'register' %}">Зарегистрироваться</a></button>&nbsp
-                <button type="button" class="btn btn-outline-secondary"><a class="nav-link active" href="{% url 'login' %}">Войти</a></button>
+                <button type="button" class="btn btn-outline-secondary">
+                    <a class="nav-link active" href="{% url 'register' %}">Зарегистрироваться</a>
+                </button>&nbsp
+                <button type="button" class="btn btn-outline-secondary">
+                    <a class="nav-link active" href="{% url 'login' %}">Войти</a>
+                </button>
             </li>
             {% endif %}
         </div>

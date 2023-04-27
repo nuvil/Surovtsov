@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import Group
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
@@ -10,7 +11,6 @@ from django.views.generic import CreateView, ListView
 from django.contrib.auth.models import User
 from .models import *
 from .forms import *
-from django.contrib import messages
 
 
 # Create your views here.
@@ -18,10 +18,25 @@ def home(request):
     return render(request, 'home.html')
 
 
-class PlaceView(ListView):
-    model = Place
-    template_name = 'place.html'
-    context_object_name = 'places'
+class BarView(ListView):
+    model = Bar
+    paginate_by = 1
+    template_name = 'bars.html'
+    context_object_name = 'bars'
+
+
+class CafeView(ListView):
+    model = Cafe
+    paginate_by = 1
+    template_name = 'cafe.html'
+    context_object_name = 'cafe'
+
+
+class RestaurantView(ListView):
+    model = Restaurant
+    paginate_by = 1
+    template_name = 'restaurants.html'
+    context_object_name = 'restaurants'
 
 
 class RegisterUser(CreateView):
@@ -46,7 +61,7 @@ class LoginUser(LoginView):
     template_name = "login.html"
 
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy('meeting')
 
 
 def logout_user(request):
@@ -62,20 +77,38 @@ class MeetingCreateView(CreateView):
     success_url = reverse_lazy('meeting')
 
 
-# cделать вьюшки встречь
-class MeetingView(ListView):
-    template_name = 'all_meeting.html'
-    model = Meetings
-    context_object_name = 'meetings'
-    permission_required = 'catalog.view_meeting'
+# class MeetingView(ListView):
+#     template_name = 'all_meeting.html'
+#     model = Meetings
+#     paginate_by = 2
+#     # context_object_name = 'meetings'
+#     permission_required = 'catalog.view_meeting'
+
+
+def meeting(request):
+    url = reverse(home)
+    meetings = Meetings.objects.all()
+    paginator = Paginator(meetings, 3)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'all_meeting.html', {"meetings": meetings, 'url': url, 'page_obj': page_obj})
 
 
 # Рейтинг встречи
-class FeedbackCreateView(CreateView):
-    template_name = 'feedback.html'
+class MeetingRatingCreateView(CreateView):
+    template_name = 'meeting_rating.html'
     model = Rating
     fields = ['user', 'meetings', 'meetings_rating', 'comment']
-    success_url = reverse_lazy('feedback')
+    success_url = reverse_lazy('meeting')
+
+
+class PlacesRatingCreateView(CreateView):
+    template_name = 'place_rating.html'
+    model = Rating
+    fields = ['user', 'place', 'place_rating', 'comment']
+    success_url = reverse_lazy('bars')
 
 
 @login_required

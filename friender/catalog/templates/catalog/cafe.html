@@ -1,29 +1,39 @@
 {% extends 'base.html'%}
 {% block content %}
-<p>
 <ul>
-    {% for meeting in page_obj %}
+    {% for cf in cafe %}
+
+    <p>
     <div class="card" style="width: 18rem;">
+        <img src="{{ cf.place_photo.url }}" class="card-img-top">
         <div class="card-body">
-            <h5 class="card-title">{{meeting.meeting_name}}</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">{{meeting.date_meeting}} &nbsp
-                {{meeting.time_meeting}}</h6>
-            <p class="card-text">{{meeting.meeting_description}}</p>
-            <a href="#" class="card-link">Подробнее</a>
-            <a href="{% url 'meeting_raiting' %}" class="card-link">Оценить встречу</a>
+            <h5 class="card-title">{{cf.place_name}}</h5>
+            <p class="card-text">{{cf.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ cf.address}}</li>
+            <li class="list-group-item">Cредний чек: {{ cf.average_paycheck}} руб</li>
+            <li class="list-group-item">Рейтинг: 10</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">{{ cf.place_phone}}</a>
+            <a href="#" class="card-link">{{ cf.place_site| cut:"http://" }}</a>
+
         </div>
     </div>
+    </p>
+
     {% endfor %}
 </ul>
-</p>
 <ul>
+    
     <p>
         <button type="button" class="btn btn-outline-secondary">
-            <a class="nav-link active" href="{% url 'add_meeting' %}">Добавить встречу</a>
+            <a class="nav-link active" href="{% url 'place_rating' %}">Оставить отзыв</a>
         </button>
     </p>
-</ul>
-<ul>
+
+
     <p>
     <nav>
         <ul class="pagination">
