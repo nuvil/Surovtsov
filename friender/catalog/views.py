@@ -24,6 +24,10 @@ class BarView(ListView):
     template_name = 'bars.html'
     context_object_name = 'bars'
 
+    # def get_context_data(self, **kwargs):
+    #     context = super(BarView, self).get_context_data(**kwargs)
+    #     context['rating'] = Rating.objects.all()
+
 
 class CafeView(ListView):
     model = Cafe
@@ -37,6 +41,56 @@ class RestaurantView(ListView):
     paginate_by = 1
     template_name = 'restaurants.html'
     context_object_name = 'restaurants'
+
+
+# cделать создателя встречи с статусом host
+class MeetingCreateView(CreateView):
+    template_name = 'add_meeting.html'
+    model = Meetings
+    fields = ['meeting_name', 'date_meeting', 'time_meeting', 'user', 'place', 'meeting_description']
+    success_url = reverse_lazy('meeting')
+
+
+def meeting_about(request, meeting_id):
+    meeting = Meetings.objects.get(id=meeting_id)
+    users = Meetings.objects.get(id=meeting_id).user.filter()
+
+    return render(request, 'about_meeting.html', {'meeting': meeting, 'users': users})
+
+
+def all_meeting(request):
+    url = reverse(home)
+    meetings = Meetings.objects.all()
+    paginator = Paginator(meetings, 3)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'all_meeting.html', {"meetings": meetings, 'url': url, 'page_obj': page_obj})
+
+
+class UserRatingCreateView(CreateView):
+    template_name = 'user_rating.html'
+    model = Rating
+    fields = ['user', 'user_rating', 'comment']
+    success_url = reverse_lazy('home')
+
+
+class MeetingRatingCreateView(CreateView):
+    template_name = 'meeting_rating.html'
+    model = Rating
+    fields = ['meetings', 'meetings_rating', 'comment']
+    success_url = reverse_lazy('meeting')
+
+
+class PlacesRatingCreateView(CreateView):
+    template_name = 'place_rating.html'
+    form_class = MeetingRatingEditForm
+
+    # def form_valid(self, form):
+    #     rating = form.save()
+    #     usernames = Users.objects.get(firstname=self.request.users.first_name)
+    #     return redirect('bars')
 
 
 class RegisterUser(CreateView):
@@ -67,48 +121,6 @@ class LoginUser(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
-
-
-# cделать создателя встречи с статусом host
-class MeetingCreateView(CreateView):
-    template_name = 'add_meeting.html'
-    model = Meetings
-    fields = ['meeting_name', 'date_meeting', 'time_meeting', 'user', 'place', 'meeting_description']
-    success_url = reverse_lazy('meeting')
-
-
-# class MeetingView(ListView):
-#     template_name = 'all_meeting.html'
-#     model = Meetings
-#     paginate_by = 2
-#     # context_object_name = 'meetings'
-#     permission_required = 'catalog.view_meeting'
-
-
-def meeting(request):
-    url = reverse(home)
-    meetings = Meetings.objects.all()
-    paginator = Paginator(meetings, 3)
-
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(request, 'all_meeting.html', {"meetings": meetings, 'url': url, 'page_obj': page_obj})
-
-
-# Рейтинг встречи
-class MeetingRatingCreateView(CreateView):
-    template_name = 'meeting_rating.html'
-    model = Rating
-    fields = ['user', 'meetings', 'meetings_rating', 'comment']
-    success_url = reverse_lazy('meeting')
-
-
-class PlacesRatingCreateView(CreateView):
-    template_name = 'place_rating.html'
-    model = Rating
-    fields = ['user', 'place', 'place_rating', 'comment']
-    success_url = reverse_lazy('bars')
 
 
 @login_required

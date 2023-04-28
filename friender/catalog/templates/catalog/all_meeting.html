@@ -9,7 +9,7 @@
             <h6 class="card-subtitle mb-2 text-body-secondary">{{meeting.date_meeting}} &nbsp
                 {{meeting.time_meeting}}</h6>
             <p class="card-text">{{meeting.meeting_description}}</p>
-            <a href="#" class="card-link">Подробнее</a>
+            <a href="{% url 'meeting_about' meeting.pk %}" class="card-link">Подробнее</a>
             <a href="{% url 'meeting_raiting' %}" class="card-link">Оценить встречу</a>
         </div>
     </div>

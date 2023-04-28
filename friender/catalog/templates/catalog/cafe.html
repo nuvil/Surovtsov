@@ -7,17 +7,17 @@
     <div class="card" style="width: 18rem;">
         <img src="{{ cf.place_photo.url }}" class="card-img-top">
         <div class="card-body">
-            <h5 class="card-title">{{cf.place_name}}</h5>
-            <p class="card-text">{{cf.description|linebreaks}}</p>
+            <h5 class="card-title">{{ cf.place_name }}</h5>
+            <p class="card-text">{{ cf.description|linebreaks }}</p>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{ cf.address}}</li>
-            <li class="list-group-item">Cредний чек: {{ cf.average_paycheck}} руб</li>
+            <li class="list-group-item">{{ cf.address }}</li>
+            <li class="list-group-item">Cредний чек: {{ cf.average_paycheck }} руб</li>
             <li class="list-group-item">Рейтинг: 10</li>
         </ul>
         <div class="card-body">
-            <a href="#" class="card-link">{{ cf.place_phone}}</a>
-            <a href="#" class="card-link">{{ cf.place_site| cut:"http://" }}</a>
+            <a href="#" class="card-link">{{ cf.place_phone }}</a>
+            <a href="{{ cf.place_site }}" class="card-link">{{ cf.place_site| cut:"http://" }}</a>
 
         </div>
     </div>
@@ -26,7 +26,7 @@
     {% endfor %}
 </ul>
 <ul>
-    
+
     <p>
         <button type="button" class="btn btn-outline-secondary">
             <a class="nav-link active" href="{% url 'place_rating' %}">Оставить отзыв</a>

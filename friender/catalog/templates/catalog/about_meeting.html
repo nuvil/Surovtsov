@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<ul>
+    <p>
+    <div class="card border-secondary mb-3" style="max-width: 18rem;">
+        <div class="card-header"><h2>{{meeting.meeting_name}}</h2></div>
+        <div class="card-body text-secondary">
+            <h3 class="card-title">{{meeting.date_meeting}}</h3>
+            <h4 class="card-title">{{meeting.time_meeting}}</h4>
+            <h4>{{meeting.place}}</h4>
+            <p class="card-text">{{meeting.meeting_description}}</p>
+            <ul class="list-group">
+                {% for user in users %}
+                <li class="list-group-item">{{user}} {{user.last_name}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div>
+        <p>
+            <button type="button" class="btn btn-outline-secondary">
+                <a class="nav-link active" href="{% url 'meeting_raiting' %}">Оценить встречу</a>
+            </button>
+            <button type="button" class="btn btn-outline-secondary">
+                <a class="nav-link active" href="{% url 'user_rating' %}">Оценить пользователя</a>
+            </button>
+
+        </p>
+    </div>
+    </p>
+</ul>
+
+{% endblock %}
