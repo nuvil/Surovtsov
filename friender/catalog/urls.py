@@ -16,4 +16,7 @@ urlpatterns = [
     path('bars/', BarView.as_view(), name='bars'),
     path('place_rating/', PlacesRatingCreateView.as_view(), name="place_rating"),
     path('user_rating/', UserRatingCreateView.as_view(), name='user_rating'),
+    path('bar/<int:bar_id>', bars_rating, name='bars_rating'),
+    path('cafe/<int:cafe_id>', cafe_rating, name='cafe_rating'),
+    path('restaurants/<int:restaurants_id>', restaurants_rating, name='restaurants_rating'),
 ]

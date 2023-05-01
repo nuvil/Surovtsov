@@ -5,6 +5,11 @@
     <div class="card border-secondary mb-3" style="max-width: 18rem;">
         <div class="card-header"><h2>{{meeting.meeting_name}}</h2></div>
         <div class="card-body text-secondary">
+            {% if meeting_avg == None %}
+                <h5>Рейтинг: Нет оценок</h5>
+            {% else %}
+                <h5>Рейтинг: {{meeting_avg}}</h5>
+            {% endif %}
             <h3 class="card-title">{{meeting.date_meeting}}</h3>
             <h4 class="card-title">{{meeting.time_meeting}}</h4>
             <h4>{{meeting.place}}</h4>

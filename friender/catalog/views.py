@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import Group
 from django.core.paginator import Paginator
+from django.db.models import Avg
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
@@ -24,9 +25,13 @@ class BarView(ListView):
     template_name = 'bars.html'
     context_object_name = 'bars'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(BarView, self).get_context_data(**kwargs)
-    #     context['rating'] = Rating.objects.all()
+
+def bars_rating(request, bar_id):
+    bar = Bar.objects.get(id=bar_id)
+    avg_rating = Rating.objects.select_related('place').filter(place_id=bar_id).aggregate(
+        avg=Avg('place_rating'))
+    rating = Rating.objects.select_related('place').filter(place_id=bar_id)
+    return render(request, 'bars_rating.html', {'bar': bar, 'rating': rating, 'avg_rating': avg_rating['avg']})
 
 
 class CafeView(ListView):
@@ -36,11 +41,29 @@ class CafeView(ListView):
     context_object_name = 'cafe'
 
 
+def cafe_rating(request, cafe_id):
+    cafe = Cafe.objects.get(id=cafe_id)
+    avg_rating = Rating.objects.select_related('place').filter(place_id=cafe_id).aggregate(
+        avg=Avg('place_rating'))
+    rating = Rating.objects.select_related('place').filter(place_id=cafe_id)
+    return render(request, 'cafe_rating.html',
+                  {'cafe': cafe, 'rating': rating, 'avg_rating': avg_rating['avg']})
+
+
 class RestaurantView(ListView):
     model = Restaurant
     paginate_by = 1
     template_name = 'restaurants.html'
     context_object_name = 'restaurants'
+
+
+def restaurants_rating(request, restaurants_id):
+    restaurants = Restaurant.objects.get(id=restaurants_id)
+    avg_rating = Rating.objects.select_related('place').filter(place_id=restaurants_id).aggregate(
+        avg=Avg('place_rating'))
+    rating = Rating.objects.select_related('place').filter(place_id=restaurants_id)
+    return render(request, 'restaurants_rating.html',
+                  {'restaurants': restaurants, 'rating': rating, 'avg_rating': avg_rating['avg']})
 
 
 # cделать создателя встречи с статусом host
@@ -53,9 +76,9 @@ class MeetingCreateView(CreateView):
 
 def meeting_about(request, meeting_id):
     meeting = Meetings.objects.get(id=meeting_id)
-    users = Meetings.objects.get(id=meeting_id).user.filter()
-
-    return render(request, 'about_meeting.html', {'meeting': meeting, 'users': users})
+    users = Meetings.objects.prefetch_related('user').get(id=meeting_id).user.filter()
+    meeting_avg = Rating.objects.select_related('meeting').filter(meetings_id=meeting_id).aggregate(avg=Avg('meetings_rating'))
+    return render(request, 'about_meeting.html', {'meeting': meeting, 'users': users, 'meeting_avg': meeting_avg['avg']})
 
 
 def all_meeting(request):
@@ -86,11 +109,7 @@ class MeetingRatingCreateView(CreateView):
 class PlacesRatingCreateView(CreateView):
     template_name = 'place_rating.html'
     form_class = MeetingRatingEditForm
-
-    # def form_valid(self, form):
-    #     rating = form.save()
-    #     usernames = Users.objects.get(firstname=self.request.users.first_name)
-    #     return redirect('bars')
+    success_url = reverse_lazy('home')
 
 
 class RegisterUser(CreateView):

@@ -13,10 +13,10 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{ rst.address }}</li>
             <li class="list-group-item">Cредний чек: {{ rst.average_paycheck }} руб</li>
-            <li class="list-group-item">Рейтинг: 10</li>
+            <li class="list-group-item">{{ rst.place_phone }}</li>
         </ul>
         <div class="card-body">
-            <a href="#" class="card-link">{{ rst.place_phone }}</a>
+            <a href="{% url 'restaurants_rating' rst.pk %}" class="card-link">Отзывы</a>
             <a href="{{ rst.place_site }}" class="card-link">{{ rst.place_site| cut:"http://" }}</a>
 
         </div>

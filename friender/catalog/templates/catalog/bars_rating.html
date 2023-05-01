@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>
+    <h1> Отзывы бара {{bar.place_name}}</h1>
+</p>
+{% if avg_rating == None %}
+    <div>
+        <ul>
+            <p>
+                <h1>Нет отзывов</h1>
+            </p>
+        </ul>
+        <ul>
+
+            <p>
+                <button type="button" class="btn btn-outline-secondary">
+                    <a class="nav-link active" href="{% url 'place_rating' %}">Оставить отзыв</a>
+                </button>
+            </p>
+        </ul>
+    </div>
+{% else %}
+    <ul>
+        <p>
+            <h3>Рейтинг заведения: {{avg_rating}}</h3>
+        </p>
+    </ul>
+    {% for rait in rating %}
+        <ul>
+            <p>
+            <div class="card">
+                <div class="card-header">
+                    Оценка: {{rait.place_rating}}
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <footer class="blockquote-footer">{{rait.comment}}
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+            </p>
+        </ul>
+    {% endfor %}
+    <p>
+        <button type="button" class="btn btn-outline-secondary">
+            <a class="nav-link active" href="{% url 'place_rating' %}">Оставить отзыв</a>
+        </button>
+    </p>
+{% endif %}
+{% endblock %}

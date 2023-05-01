@@ -14,11 +14,11 @@
             <li class="list-group-item">{{ bar.address }}</li>
             <li class="list-group-item">Cредний чек: {{ bar.average_paycheck }} руб</li>
 
-            <li class="list-group-item">Рейтинг: </li>
+            <li class="list-group-item">{{ bar.place_phone }}</li>
 
         </ul>
         <div class="card-body">
-            <a href="#" class="card-link">{{ bar.place_phone }}</a>
+            <a href="{% url 'bars_rating' bar.pk %}" class="card-link">Отзывы</a>
             <a href="{{ bar.place_site }}" class="card-link">{{ bar.place_site| cut:"http://" }}</a>
 
         </div>

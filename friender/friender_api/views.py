@@ -1,15 +1,35 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .serializers import PlacesModelSerializers
+from .serializers import *
 from catalog.models import *
 
 
 # Create your views here.
-class PlacesApiView(generics.ListCreateAPIView):
-    queryset = Place.objects.all()
-    serializer_class = PlacesModelSerializers
+class BarApiView(generics.ListCreateAPIView):
+    queryset = Bar.objects.all()
+    serializer_class = BarsModelSerializers
 
 
-class PlaceApiView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Place.objects.all()
-    serializer_class = PlacesModelSerializers
+class BarsApiView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Bar.objects.all()
+    serializer_class = BarsModelSerializers
+
+
+class RestaurantApiView(generics.ListCreateAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantsModelSerializers
+
+
+class RestaurantsApiView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantsModelSerializers
+
+
+class CafApiView(generics.ListCreateAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = CafeModelSerializers
+
+
+class CafeApiView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = CafeModelSerializers
