@@ -1,6 +1,7 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.mixins import PermissionRequiredMixin, AccessMixin
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import Group
 from django.core.paginator import Paginator
@@ -12,6 +13,7 @@ from django.views.generic import CreateView, ListView
 from django.contrib.auth.models import User
 from .models import *
 from .forms import *
+from django.contrib.auth.decorators import permission_required
 
 
 # Create your views here.
@@ -66,19 +68,22 @@ def restaurants_rating(request, restaurants_id):
                   {'restaurants': restaurants, 'rating': rating, 'avg_rating': avg_rating['avg']})
 
 
-# cделать создателя встречи с статусом host
-class MeetingCreateView(CreateView):
+class MeetingCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'add_meeting.html'
+    permission_required = 'catalog.add_meetings'
     model = Meetings
     fields = ['meeting_name', 'date_meeting', 'time_meeting', 'user', 'place', 'meeting_description']
     success_url = reverse_lazy('meeting')
 
 
+@permission_required('meetings.views_meeting', login_url='../../friender/meeting')
 def meeting_about(request, meeting_id):
     meeting = Meetings.objects.get(id=meeting_id)
     users = Meetings.objects.prefetch_related('user').get(id=meeting_id).user.filter()
-    meeting_avg = Rating.objects.select_related('meeting').filter(meetings_id=meeting_id).aggregate(avg=Avg('meetings_rating'))
-    return render(request, 'about_meeting.html', {'meeting': meeting, 'users': users, 'meeting_avg': meeting_avg['avg']})
+    meeting_avg = Rating.objects.select_related('meeting').filter(meetings_id=meeting_id).aggregate(
+        avg=Avg('meetings_rating'))
+    return render(request, 'about_meeting.html',
+                  {'meeting': meeting, 'users': users, 'meeting_avg': meeting_avg['avg']})
 
 
 def all_meeting(request):
@@ -99,8 +104,9 @@ class UserRatingCreateView(CreateView):
     success_url = reverse_lazy('home')
 
 
-class MeetingRatingCreateView(CreateView):
+class MeetingRatingCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'meeting_rating.html'
+    permission_required = 'catalog.add_rating'
     model = Rating
     fields = ['meetings', 'meetings_rating', 'comment']
     success_url = reverse_lazy('meeting')
